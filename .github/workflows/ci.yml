@@ -1,0 +1,65 @@
+name: CI
+on:
+  push:
+    branches:
+    - main
+    tags:
+    - "v*"
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jvm: [8, 11, 17, 21, 25]
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - uses: coursier/cache-action@v8
+    - uses: VirtusLab/scala-cli-setup@v1
+      with:
+        power: true
+
+    - name: Run unit tests
+      run: scala-cli test . --jvm ${{ matrix.jvm }}
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - uses: coursier/cache-action@v8
+    - uses: VirtusLab/scala-cli-setup@v1
+      with:
+        power: true
+
+    - name: Check formatting
+      run: scala-cli fmt . --check
+
+    - name: Compile README examples
+      run: scala-cli compile --markdown README.md --scala 3.3.5 -cp "$(scala-cli compile . --print-classpath)"
+
+  publish:
+    needs: [test, check]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - uses: coursier/cache-action@v8
+    - uses: VirtusLab/scala-cli-setup@v1
+      with:
+        power: true
+    - name: Publish
+      run: scala-cli publish . --cross
+      env:
+        PUBLISH_USER: ${{ secrets.PUBLISH_USER }}
+        PUBLISH_PASSWORD: ${{ secrets.PUBLISH_PASSWORD }}
+        PUBLISH_SECRET_KEY: ${{ secrets.PUBLISH_SECRET_KEY }}
+        PUBLISH_SECRET_KEY_PASSWORD: ${{ secrets.PUBLISH_SECRET_KEY_PASSWORD }}
+        PUBLISH_PUBLIC_KEY: ${{ secrets.PUBLISH_PUBLIC_KEY }}
+        GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
