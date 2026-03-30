@@ -522,9 +522,3 @@ trait Tests[E](using b: XmlBackend[E]) extends munit.FunSuite {
 
 }
 
-import dom.given
-import scalaxml.given
-
-class ScalaXMLSuite extends Tests[scala.xml.Elem] {}
-
-class ExampleSuite2 extends Tests[org.w3c.dom.Element] {}

@@ -20,12 +20,22 @@ It simply treats XML as a tree, similar to how uPickle supports case class deriv
 - **Sum‑type support** with dispatch via `@matchTag(...)` / `@matchAttr(...)`
 - Configurable global attribute name mapping support, defaulting to a kebab-case to camelCase
 - Custom attribute type mapping via `XmlMappable[A]`
+- ScalaJS/Native support
 
 ## Installation
 
 Add to your SBT project:
 ```scala sc:nocompile ignore
-libraryDependencies += "net.kurobako" %% "xml-binder" % "0.1.0"
+libraryDependencies += "net.kurobako" %% "xml-binder" % "0.2.0"
+```
+Or scala-cli:
+
+```scala sc:nocompile ignore
+//> using dep net.kurobako::xml-binder:0.2.0
+```
+Or Mill:
+```scala sc:nocompile ignore
+ivy"net.kurobako::xml-binder:0.2.0"
 ```
 
 ## Usage
@@ -82,7 +92,7 @@ XmlBinding.string[scala.xml.Elem, MyType]("<node FOO_BAR=\"42\" />", _.toLowerCa
    ```
 3. Tag the release version:
    ```
-   git tag v0.1.0
+   git tag v<Maj>.<Min>.<Patch>
    ```
 4. Dry run: verify everything builds, signs, and resolves without uploading:
    ```

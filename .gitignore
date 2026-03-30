@@ -9,3 +9,5 @@
 scala-doc
 .idea/
 .claude/
+
+node_modules/

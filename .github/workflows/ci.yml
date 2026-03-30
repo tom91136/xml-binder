@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  test-jvm:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,9 +21,23 @@ jobs:
     - uses: VirtusLab/scala-cli-setup@v1
       with:
         power: true
-
-    - name: Run unit tests
+    - name: Run unit tests (JVM)
       run: scala-cli test . --jvm ${{ matrix.jvm }}
+
+  test-js:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - uses: coursier/cache-action@v8
+    - uses: VirtusLab/scala-cli-setup@v1
+      with:
+        power: true
+    - run: npm install jsdom
+
+    - name: Run unit tests (JS)
+      run: scala-cli test . --js --dep org.scala-js::scalajs-dom::2.8.1
 
   check:
     runs-on: ubuntu-latest
