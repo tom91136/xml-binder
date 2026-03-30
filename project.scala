@@ -1,5 +1,5 @@
 //> using scala 3.3.5 // lts
-//> using jvm 18
+//> using jvm 8
 //> using dep org.scala-lang.modules::scala-xml:2.4.0
 //> using test.dep org.scalameta::munit::1.2.4
 //> using option -Wunused:all -Xcheck-macros -no-indent -Wconf:name=PatternMatchExhaustivity:error -language:noAutoTupling

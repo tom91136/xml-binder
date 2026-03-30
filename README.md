@@ -1,5 +1,10 @@
 # xml-binder
 
+[![CI](https://github.com/tom91136/xml-binder/actions/workflows/ci.yml/badge.svg)](https://github.com/tom91136/xml-binder/actions/workflows/ci.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/net.kurobako/xml-binder_3)](https://central.sonatype.com/artifact/net.kurobako/xml-binder_3)
+[![Javadoc](https://javadoc.io/badge2/net.kurobako/xml-binder_3/javadoc.svg)](https://javadoc.io/doc/net.kurobako/xml-binder_3)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 A simple Scala 3 library for binding XML to algebraic data types via compile‑time derivation.
 Unlike scalaxb, this library does not handle namespaces or generate code from a schema.
 It simply treats XML as a tree, similar to how uPickle supports case class derivation.
