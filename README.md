@@ -72,7 +72,8 @@ XmlBinding.string[scala.xml.Elem, MyType]("<node FOO_BAR=\"42\" />", _.toLowerCa
    Generate the token at https://central.sonatype.com.
 2. Make sure all changes are committed and tests pass:
    ```
-   scala-cli test .
+   scala-cli test . 
+   git push
    ```
 3. Tag the release version:
    ```
@@ -80,15 +81,16 @@ XmlBinding.string[scala.xml.Elem, MyType]("<node FOO_BAR=\"42\" />", _.toLowerCa
    ```
 4. Dry run: verify everything builds, signs, and resolves without uploading:
    ```
-   scala-cli --power publish . --dummy
+   scala-cli --power publish . --cross --dummy
    ```
 5. Publish:
    ```
-   scala-cli --power publish .
+   scala-cli --power publish . --cross
    ```
 6. Push the tag:
    ```
-   git push && git push --tags
+   git push
+   git push --tags
    ```
 
 ## Licence
