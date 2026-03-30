@@ -59,15 +59,15 @@ XmlBinding.string[scala.xml.Elem, MyType]("<node FOO_BAR=\"42\" />", _.toLowerCa
 1. One-time setup: configure scala-cli with Sonatype credentials and GPG key. Check if already configured first:
    ```
    scala-cli --power config publish.credentials
-   scala-cli --power config publish.secretKey
-   scala-cli --power config publish.publicKey
+   scala-cli --power config pgp.secret-key
+   scala-cli --power config pgp.public-key
    ```
    If any are missing, set them up:
    ```
-   scala-cli --power config publish.credentials central.sonatype.com --user <token-username> --password <token-password>
-   scala-cli --power config publish.secretKey --value "$(gpg --armor --export-secret-keys <KEY_ID>)"
-   scala-cli --power config publish.secretKeyPassword --value <gpg-passphrase>
-   scala-cli --power config publish.publicKey --value "$(gpg --armor --export <KEY_ID>)"
+   scala-cli --power config publish.credentials central.sonatype.com value:<token-username> value:<token-password>
+   scala-cli --power config pgp.secret-key "value:$(gpg --armor --export-secret-keys <KEY_ID>)"
+   scala-cli --power config pgp.secret-key-password "value:<gpg-passphrase>"
+   scala-cli --power config pgp.public-key "value:$(gpg --armor --export <KEY_ID>)"
    ```
    Generate the token at https://central.sonatype.com.
 2. Make sure all changes are committed and tests pass:
